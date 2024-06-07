@@ -31,13 +31,21 @@ fn main() {
         }
 
 
-        
+
+
+
     } else if url::is_url_encoded(encoded_str) {
         match url::decode_url(encoded_str) {
             Ok(decoded_string) => println!("Decoded URL string: {}", decoded_string),
             Err(e) => println!("Error: {}", e),
         }
+
+
+        
     } else {
         println!("The string is neither valid Base64, Hex, nor URL encoded.");
     }
+
+
+
 }
