@@ -51,6 +51,7 @@ pub fn decode_base64(encoded: &str) -> Result<Vec<u8>, &'static str> {
 
 
     for c in encoded.chars() {
+        
         let val = match base64_char_to_val(c) {
             Some(val) => val,
             None => return Err("Invalid character in Base64 string"),
