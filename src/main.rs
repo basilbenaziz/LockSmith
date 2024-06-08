@@ -3,7 +3,13 @@ mod hex;
 mod url;
 
 fn main() {
-    let encoded_str = "SGVsbG8gV29ybGQh"; // Example input, replace with your string
+    //Base64//SGVsbG8gV29ybGQh
+    //Base64////Base64//U0dWc2JHOGdWMjl5YkdRaA==
+    //HEX//68 69 20 6d 65
+    let encoded_str = "U0dWc2JHOGdWMjl5YkdRaA=="; // Example input, replace with your string
+
+
+
 
     if base64::is_base64(encoded_str) {
         match base64::decode_base64(encoded_str) {
@@ -41,7 +47,7 @@ fn main() {
         }
 
 
-        
+
     } else {
         println!("The string is neither valid Base64, Hex, nor URL encoded.");
     }
