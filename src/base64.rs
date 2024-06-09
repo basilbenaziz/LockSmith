@@ -1,11 +1,5 @@
 
 
-
-
-
-
-
-
 pub fn is_base64(s: &str) -> bool {
     if s.len() % 4 != 0 {
         return false;
@@ -13,11 +7,7 @@ pub fn is_base64(s: &str) -> bool {
     s.chars()
         .all(|c| c.is_ascii_alphanumeric() || c == '+' || c == '/' || c == '=')
 }
-
-
-
-
-
+    
 
 
 
