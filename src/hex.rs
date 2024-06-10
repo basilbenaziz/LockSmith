@@ -31,6 +31,7 @@ impl Hex {
     /// hex string.
     pub fn is_hex(input: String) -> bool {
         input
+            .replace(" ", "")
             .chars()
             .all(|c| c.is_digit(16))
     }
@@ -66,27 +67,83 @@ impl Hex {
 
 
 
+    // pub fn hex_decode(&mut self) -> String {
+    //     if Hex::is_hex(self.encoded_str.clone()) == false{
+    //         return "Invalid character in hex string".to_string();
+    //     }
+    //     while Hex::is_hex(self.encoded_str.clone()){
+    //         let mut output = Vec::new();
+    //         let mut chars = self.encoded_str.chars();
+
+    //         while let (Some(high), Some(low)) = (chars.next(), chars.next()) {
+    //             let high_digit = high.to_digit(16).unwrap() as u8;
+    //             let low_digit = low.to_digit(16).unwrap() as u8;
+    //             output.push((high_digit << 4) | low_digit);
+    //         }
+
+
+    //         self.encoded_str = String::from_utf8(output)
+    //                             .unwrap_or_else(|_| "Invalid UTF-8 sequence".to_string())
+    //                             .replace(" ", "");
+    //         print!("Decode Hex: {}\n", self.encoded_str.clone());
+            
+    //     }
+    //     return self.encoded_str.clone();
+    // }
+
+
+    // pub fn hex_decode(&mut self) -> String {
+    //     self.encoded_str = self.encoded_str.replace(" ", ""); // Trim spaces from the input string
+    
+    //     if !Hex::is_hex(self.encoded_str.clone()) {
+    //         return "Invalid character in hex string".to_string();
+    //     }
+    
+    //     while Hex::is_hex(self.encoded_str.clone()) {
+    //         let mut output = Vec::new();
+    //         let mut chars = self.encoded_str.chars();
+    
+    //         while let (Some(high), Some(low)) = (chars.next(), chars.next()) {
+    //             let high_digit = high.to_digit(16).unwrap() as u8;
+    //             let low_digit = low.to_digit(16).unwrap() as u8;
+    //             output.push((high_digit << 4) | low_digit);
+    //         }
+    
+    //         self.encoded_str = String::from_utf8(output)
+    //             .unwrap_or_else(|_| "Invalid UTF-8 sequence".to_string())
+    //             .replace(" ", ""); // Trim spaces again after converting to UTF-8
+    //         print!("Decode Hex: {}\n", self.encoded_str.clone());
+    //     }
+    
+    //     self.encoded_str.clone()
+    // }
+
+
+
+
     pub fn hex_decode(&mut self) -> String {
-        if Hex::is_hex(self.encoded_str.clone()) == false{
+        self.encoded_str = self.encoded_str.replace(" ", ""); // Trim spaces from the input string
+
+        if !Self::is_hex(self.encoded_str.clone()) {
             return "Invalid character in hex string".to_string();
         }
-        while Hex::is_hex(self.encoded_str.clone()){
-            let mut output = Vec::new();
-            let mut chars = self.encoded_str.chars();
 
-            while let (Some(high), Some(low)) = (chars.next(), chars.next()) {
-                let high_digit = high.to_digit(16).unwrap() as u8;
-                let low_digit = low.to_digit(16).unwrap() as u8;
-                output.push((high_digit << 4) | low_digit);
-            }
+        let mut output = Vec::new();
+        let mut chars = self.encoded_str.chars();
 
-
-            self.encoded_str = String::from_utf8(output)
-                                .unwrap_or_else(|_| "Invalid UTF-8 sequence".to_string())
-                                .replace(" ", "");
-            print!("Decode Hex: {}\n", self.encoded_str.clone());
-            
+        while let (Some(high), Some(low)) = (chars.next(), chars.next()) {
+            let high_digit = high.to_digit(16).unwrap() as u8;
+            let low_digit = low.to_digit(16).unwrap() as u8;
+            output.push((high_digit << 4) | low_digit);
         }
-        return self.encoded_str.clone();
+
+        self.encoded_str = String::from_utf8(output)
+            .unwrap_or_else(|_| "Invalid UTF-8 sequence".to_string());
+
+        print!("Decode Hex: {}\n", self.encoded_str);
+        self.encoded_str.clone()
     }
+    
+
+
 }
