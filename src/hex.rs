@@ -1,38 +1,92 @@
-pub fn hex_char_to_val(c: char) -> Option<u8> {
-    match c {
-        '0'..='9' => Some(c as u8 - '0' as u8),
-        'a'..='f' => Some(c as u8 - 'a' as u8 + 10),
-        'A'..='F' => Some(c as u8 - 'A' as u8 + 10),
-        _ => None,
-    }
+pub struct Hex {
+    encoded_str: String,
 }
 
-pub fn decode_hex(encoded: &str) -> Result<Vec<u8>, &'static str> {
-    if encoded.len() % 2 != 0 {
-        return Err("Invalid Hex string length");
+impl Hex {
+    /// The function `new` creates a new instance of the `Hex` struct with the provided encoded
+    /// string.
+    /// 
+    /// Arguments:
+    /// 
+    /// * `encoded_str`: The `encoded_str` parameter in the `new` function is a `String` type that
+    /// represents the hex encoded string that will be used to create a new instance of the `Hex`
+    /// struct.
+    /// 
+    /// Returns:
+    /// 
+    /// A new instance of the `Hex` struct with the `encoded_str` field set to the provided `String`
+    /// value.
+    pub fn new(encoded_str: String) -> Hex {
+        Hex { encoded_str }
     }
 
-    let mut decoded_bytes = Vec::new();
-    let mut chars = encoded.chars();
-
-    while let (Some(high), Some(low)) = (chars.next(), chars.next()) {
-        let high_val = match hex_char_to_val(high) {
-            Some(val) => val,
-            None => return Err("Invalid character in Hex string"),
-        };
-        let low_val = match hex_char_to_val(low) {
-            Some(val) => val,
-            None => return Err("Invalid character in Hex string"),
-        };
-        decoded_bytes.push((high_val << 4) | low_val);
+    /// The function `is_hex` checks if all characters in the encoded string are valid hex
+    /// characters.
+    /// 
+    /// Returns:
+    /// 
+    /// The `is_hex` method returns a boolean value indicating whether the encoded string is a valid
+    /// hex string. It checks if all characters in the string are valid hex digits (0-9, a-f, A-F).
+    /// If these conditions are met, the method returns `true`, indicating that the string is a valid
+    /// hex string.
+    pub fn is_hex(input: String) -> bool {
+        input
+            .chars()
+            .all(|c| c.is_digit(16))
     }
 
-    Ok(decoded_bytes)
-}
+    // pub fn is_hex(&self) -> bool {
+    //     self.encoded_str
+    //         .chars()
+    //         .all(|c| c.is_digit(16))
+    // }
 
-pub fn is_hex(s: &str) -> bool {
-    if s.len() % 2 != 0 {
-        return false;
+    /// The function `hex_decode` decodes a hex encoded string and returns the decoded string.
+    /// 
+    /// Returns:
+    /// 
+    /// The `hex_decode` function returns the decoded hex string as a `String`.
+    // pub fn hex_decode(&mut self) -> String {
+    //     if !self.is_hex() {
+    //         return "Invalid character in hex string".to_string();
+    //     }
+
+    //     let mut output = Vec::new();
+    //     let mut chars = self.encoded_str.chars();
+
+    //     while let (Some(high), Some(low)) = (chars.next(), chars.next()) {
+    //         let high_digit = high.to_digit(16).unwrap() as u8;
+    //         let low_digit = low.to_digit(16).unwrap() as u8;
+    //         output.push((high_digit << 4) | low_digit);
+    //     }
+
+    //     self.encoded_str = String::from_utf8(output).unwrap_or_else(|_| "Invalid UTF-8 sequence".to_string());
+    //     self.encoded_str.clone()
+    // }
+
+
+
+    pub fn hex_decode(&mut self) -> String {
+        if Hex::is_hex(self.encoded_str.clone()) == false{
+            return "Invalid character in hex string".to_string();
+        }
+        while Hex::is_hex(self.encoded_str.clone()){
+            let mut output = Vec::new();
+            let mut chars = self.encoded_str.chars();
+
+            while let (Some(high), Some(low)) = (chars.next(), chars.next()) {
+                let high_digit = high.to_digit(16).unwrap() as u8;
+                let low_digit = low.to_digit(16).unwrap() as u8;
+                output.push((high_digit << 4) | low_digit);
+            }
+
+
+            self.encoded_str = String::from_utf8(output)
+                                .unwrap_or_else(|_| "Invalid UTF-8 sequence".to_string())
+                                .replace(" ", "");
+            print!("Decode Hex: {}\n", self.encoded_str.clone());
+            
+        }
+        return self.encoded_str.clone();
     }
-    s.chars().all(|c| c.is_ascii_hexdigit())
 }
