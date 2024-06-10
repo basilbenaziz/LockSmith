@@ -22,27 +22,8 @@ impl Base64 {
         Base64 { encoded_str }
     }
 
-    /// The function `is_base64` checks if all characters in the encoded string are valid Base64
-    /// characters.
-    /// 
-    /// Returns:
-    /// 
-    /// The `is_base64` method returns a boolean value indicating whether the encoded string is a valid
-    /// Base64 string. It checks if the length of the encoded string is a multiple of 4 and if all
-    /// characters in the string are either ASCII alphanumeric characters or one of the characters '+',
-    /// '/', or '='. If these conditions are met, the method returns `true`, indicating that the string
-    /// is a valid
-    // pub fn is_base64(input: String) -> bool {
-    //     if input.len() % 4 != 0 {
-    //         return false;
-    //     }
-    //     // This code snippet is checking if all characters in the encoded string are either ASCII
-    //     // alphanumeric characters or one of the characters '+', '/', or '='.
-    //     input
-    //         .chars()
-    //         .all(|c| c.is_ascii_alphanumeric() || c == '+' || c == '/' || c == '=')
-    // }
 
+    
     pub fn is_base64(input: String) -> bool {
         if input.len() % 4 != 0 {
             return false;
