@@ -1,5 +1,4 @@
 
-
 pub fn is_base64(s: &str) -> bool {
     if s.len() % 4 != 0 {
         return false;
@@ -39,7 +38,6 @@ pub fn decode_base64(encoded: &str) -> Result<Vec<u8>, &'static str> {
     let mut buffer = 0u32;
     let mut bits_collected = 0;
 
-
     for c in encoded.chars() {
         
         let val = match base64_char_to_val(c) {
@@ -56,6 +54,7 @@ pub fn decode_base64(encoded: &str) -> Result<Vec<u8>, &'static str> {
     }
     Ok(decoded_bytes)
 }
+
 
 pub fn base64_char_to_val(c: char) -> Option<u8> {
     match c {
