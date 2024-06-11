@@ -23,7 +23,19 @@ impl Base64 {
     }
 
 
-    
+
+/// The function `is_base64` in Rust checks if a given input string is a valid Base64 encoded string.
+/// 
+/// Arguments:
+/// 
+/// * `input`: The function `is_base64` checks if a given input string is a valid Base64 encoded string.
+/// It performs the following checks:
+/// 
+/// Returns:
+/// 
+/// The function `is_base64` returns a boolean value indicating whether the input string is a valid
+/// Base64 encoded string. If the input string meets the conditions specified in the function, it will
+/// return `true`, otherwise it will return `false`.
     pub fn is_base64(input: String) -> bool {
         if input.len() % 4 != 0 {
             return false;
@@ -89,5 +101,6 @@ impl Base64 {
         return self.encoded_str.to_string();
         
     }
+    
 
 }

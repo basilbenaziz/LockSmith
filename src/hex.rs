@@ -29,15 +29,32 @@ impl Hex {
     /// hex string. It checks if all characters in the string are valid hex digits (0-9, a-f, A-F).
     /// If these conditions are met, the method returns `true`, indicating that the string is a valid
     /// hex string.
+    // pub fn is_hex(input: String) -> bool {
+    //     input
+    //         .replace(" ", "")
+    //         .chars()
+    //         .all(|c| c.is_digit(16))
+    // }
     pub fn is_hex(input: String) -> bool {
-        input
-            .replace(" ", "")
-            .chars()
-            .all(|c| c.is_digit(16))
+        let cleaned_input = input.replace(" ", "");
+        if cleaned_input.chars().all(|c| c == '0' || c == '1') {
+            return false; // It's binary
+        }
+        cleaned_input.chars().all(|c| c.is_digit(16))
     }
 
 
 
+   /// The `hex_decode` function decodes a hexadecimal-encoded string by converting pairs of hexadecimal
+   /// characters into their corresponding bytes.
+   /// 
+   /// Returns:
+   /// 
+   /// The `hex_decode` function returns the decoded string after processing the hexadecimal encoded
+   /// input string. If the input string contains invalid characters for a hexadecimal string, it
+   /// returns the message "Invalid character in hex string". If the decoded bytes cannot be converted
+   /// to a valid UTF-8 string, it returns "Invalid UTF-8 sequence". Otherwise, it returns the decoded
+   /// string.
     pub fn hex_decode(&mut self) -> String {
         self.encoded_str = self.encoded_str.replace(" ", ""); // Trim spaces from the input string
 
